@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="toDoApp" lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <title>ToDoList</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        
+        <!-- AngularJS include -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+        <!-- Angular-mocks include -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-mocks.js"></script>
+        <!-- Firebase include -->
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+        <!-- AngularFire include -->
+        <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+        <!-- Bootstrap include -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <!-- not Bootstrap css -->
+        <link rel="stylesheet" href="css\todo.css">
+
+        <!-- MODEL -->
+        <script src="js/todo.js"></script>
+    </head>
+
+    <!-- TEMPLATE -->
+    <body ng-controller = "ToDoCtrl">
+        <!-- top fixed navbar with new task input-->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <a class="navbar-brand" href="#">ToDoList</a>
+            <input type="text" class="form-control" ng-model="task" ng-keydown="addTask($event)" type="text" id="taskInput"  placeholder="nový úkol..." maxlength="40">
+        </nav>
+        <!-- container with row for all tasks -->
+        <div class="container">
+            <div class="row">
+                <!-- not completed task column, up to 992px two separate columns -->
+                <div class="col-xs-12 col-sm-6">
+                    <!-- iteration over all not completed tasks -->
+                    <ul class="list-unstyled" ng-repeat = "task in tasks" ng-if="!task.completed">
+                        <li class="ui-state-default">
+                            <button type="button" class="btn btn-success btn-sm" ng-click="checkedTask(task)">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                            <strong>{{task.text}}</strong>
+                            <button type="button" class="btn btn-danger btn-sm pull-right" ng-click="deleteTask(task)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+                <!-- completed task column, up to 992px two separate columns -->
+                <div class="col-xs-12 col-sm-6">
+                    <!-- iteration over all completed tasks -->
+                    <ul class="list-unstyled" ng-repeat = "task in tasks" ng-if="task.completed">
+                        <li class="ui-state-default">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="checkedTask(task)">
+                                <span class="glyphicon glyphicon-open"></span>
+                            </button>
+                            <del>{{task.text}}</del>
+                            <button type="button" class="btn btn-danger btn-sm pull-right" ng-click="deleteTask(task)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>   
+        </div>
+        
+    </body>
+</html>
