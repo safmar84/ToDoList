@@ -1,4 +1,4 @@
-/* MODEL */
+
 
 // create module with dependency on firebase for using AngularFire services
 var toDoApp = angular.module("toDoApp", ["firebase"]);
@@ -14,10 +14,7 @@ toDoApp.controller("ToDoCtrl", ["$scope", "$firebaseArray",
         // add task
         $scope.addTask = function(e) {
             if (e.keyCode == 13 && $scope.task) {
-                $scope.tasks.$add({
-                    completed: false,
-                    text: $scope.task
-                });
+                $scope.tasks.$add( { completed: false, text: $scope.task } );
                 // reset task for a next add
                 $scope.task="";
             }
